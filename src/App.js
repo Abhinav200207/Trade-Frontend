@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import MiniDrawer from './Components/Drawer/Drawer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import HomePage from './Components/Home/HomePage';
+import Profile from './Components/Profile/Profile';
+import Login from './Components/Login/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { loadUser } from './actions/trade';
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
+
+  const { isAuthenticated } = useSelector((state) => state.user);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route path="/" element={isAuthenticated ? <MiniDrawer comp={<HomePage />} /> : <Login />} />
+          <Route path="/profile" element={<MiniDrawer comp={<Profile />} />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

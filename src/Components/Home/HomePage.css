@@ -1,0 +1,10 @@
+.homePage {
+  box-sizing: border-box;
+  display: flex;
+  background-image: linear-gradient(to right, #fff5bc, #cec1ff);
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  min-height: 800px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.509);
+}
